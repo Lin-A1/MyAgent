@@ -1,0 +1,11 @@
+base:
+  dir: /home/lin/work/code/DeepLearning/LLM/MyAgent
+
+save:
+  dir: data
+
+embedding:
+  path: models/bge-large-zh-v1.5
+
+rerank:
+  path: models/bge-reranker-v2-m3
