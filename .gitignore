@@ -2,7 +2,9 @@
 !.gitignore
 **/__pycache__/
 venv
-models
+models/bge-reranker-v2-m3
+models/bge-large-zh-v1.5
+models/Qwen2.5-14B-Instruct-GPTQ-Int4
 !models/__init__.py
 !models/bge-reranker-v2-m3/__init__.py
 !models/bge-large-zh-v1.5/__init__.py
