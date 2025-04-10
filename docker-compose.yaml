@@ -4,6 +4,7 @@ services:
     restart: no
     image: vllm/vllm-openai:v0.6.1
     ipc: host
+    runtime: nvidia  # 使用 NVIDIA 运行时
     volumes:
       - ./models:/models
     command:
@@ -17,10 +18,3 @@ services:
       - "8"
     ports:
       - 8000:8000
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]
