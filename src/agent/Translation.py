@@ -72,7 +72,7 @@ class TranslationService:
 
 # 使用示例
 if __name__ == "__main__":
-    api_key = ""
+    api_key = "sk-0510de2c979d43ec8c7997b55cb00edb"
 
     # 初始化翻译服务
     translator = TranslationService(api_key)
