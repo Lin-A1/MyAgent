@@ -8,3 +8,4 @@ models/**/*
 !models/**/__init__.py
 MyAgent.egg-info
 update.sh
+run.sh
