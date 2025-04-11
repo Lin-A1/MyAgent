@@ -1,4 +1,5 @@
 import os
+import re
 from langchain.chat_models import init_chat_model
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
@@ -31,13 +32,28 @@ class TranslationService:
         self.parser = StrOutputParser()
 
         # 定义系统提示模板
-        self.system_content = "你需要将我发送给你的英文翻译成中文"
+        self.system_content = """
+        你是一个中文领域的翻译家
+        你需要将我发送给你的英文或者其他外文翻译成中文
+        输出案例：
+        ```text 你好世界 ``` 
+        输出格式：
+        ```text your Translations ```
+        """
         self.prompt_template = ChatPromptTemplate.from_messages(
             [("system", self.system_content), ("user", "{text}")]
         )
 
         # 构建链式调用
         self.chain = self.prompt_template | self.model | self.parser
+
+    def parse_text(self, rsp):
+        pattern = r"```text(.*)``` "
+        match = re.search(pattern, rsp, re.DOTALL)
+        text = match.group(1) if match else rsp
+        text = text.replace("```text", "")
+        text = text.replace("```", "")
+        return text
 
     def translate(self, text):
         """
@@ -50,12 +66,12 @@ class TranslationService:
             raise ValueError("输入的文本不能为空")
 
         response = self.chain.invoke({"text": text})
+        response = self.parse_text(rsp=response)
         return response
 
 
 # 使用示例
 if __name__ == "__main__":
-    # 替换为你的 API 密钥
     api_key = "sk-0510de2c979d43ec8c7997b55cb00edb"
 
     # 初始化翻译服务

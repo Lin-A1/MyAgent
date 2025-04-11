@@ -2,7 +2,10 @@
 !.gitignore
 **/__pycache__/
 venv
+knowledge
 models/**/*
 !models/__init__.py
 !models/**/__init__.py
 MyAgent.egg-info
+models/qwen2.5-7b-instruct-1m-gptq-int4
+models/Qwen2.5-14B-Instruct-GPTQ-Int4

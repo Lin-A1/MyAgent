@@ -1,20 +1,12 @@
 services:
-  vllm:
-    container_name: vllm
-    restart: no
-    image: vllm/vllm-openai:v0.6.1
-    ipc: host
-    runtime: nvidia  # 使用 NVIDIA 运行时
-    volumes:
-      - ./models:/models
-    command:
-      - "--model"
-      - "models/Qwen2.5-14B-Instruct-GPTQ-Int4"
-      - "--served-model-name"
-      - "qwen2.5-7b-instruct"
-      - "--gpu-memory-utilization"
-      - "0.8"
-      - "--cpu-offload-gb"
-      - "8"
+  xinference:
+    image: xprobe/xinference:latest
+    container_name: xinference
     ports:
-      - 8000:8000
+      - "9998:9998"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
+    restart: always
